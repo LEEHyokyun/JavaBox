@@ -1,0 +1,5 @@
+package step7.model;
+
+public class Customer {
+	public String password1 = "Hello";
+}

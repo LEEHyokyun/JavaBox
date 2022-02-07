@@ -1,0 +1,7 @@
+package step7.model;
+
+public class TestAccessModifier2 {
+	public static void main(String[] args) {
+		
+	}
+}

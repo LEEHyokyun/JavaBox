@@ -1,0 +1,7 @@
+package step7.model;
+
+public class Customer {
+	//public am : 다른 패키지에서도 접근 가능
+	public String password1 = "Hello";
+	protected String password2 = "Hi";
+}
