@@ -1,0 +1,110 @@
+-제어문 - switch case
+	ㅁ switch(변수){case 조건: logic..}
+	*조건에 맞는 case부터 순차적으로 아래 구문을 모두 실행한다.
+	(조건이 없을 경우 default)
+	*조건문 탈출을 위해서는 반드시 break를 설정해주어야 한다.
+	*여러 조건을 한 줄에 작성가능하다(case 1: case 2: case 3:)
+	 
+-제어문 - 반복문(for / while / do while)
+	ㅁ for //순환조건이 정해져있는 반복, 반복인자 자동증가
+		ㄴ 정순환(0~9)
+		for(int i=0;i<10;i++) {
+			System.out.println(i);
+		}
+		ㄴ 역순환(10~1)
+		for(int i=10;i>0;i--) {
+			System.out.println(i);
+		}
+	ㅁ while //순환조건이 조건적, 반복인자 사용자 정의
+		int i = 1;
+		while(i<10) {
+			System.out.println(i);
+			i = i +5;
+		}
+	ㅁ do while // do 구문을 최소 한번은 일단 실행 후, while 조건 비교
+		int i = 1;
+		do {
+			System.out.println("do 구문은 촤소한 한 번 실행한다.");
+		}while(i<0);
+		
+	ㅁ 중첩(Nested) for
+		for(int i=0;i<row;i++) {
+			System.out.println();
+			for(int j=0;j<col;j++) {
+				System.out.print((j+1)+"\t");
+			}
+		}
+		
+-객체 초기화 단계
+	ㅁ 객체 생성시 어떤 단계를 거쳐서 초기화가 되는지에 대한 정리
+	→상속과 연계
+	* 인스턴스 변수 기본 초기화 > 인스턴스 변수 명시적 초기화 > 생성자에 의한 초기화
+	위 3과정을 거친 후, 최종적으로 객체가 heap 메모리에 적재된다.
+	
+	ㅁ 기본 초기화
+	* 인스턴스 변수에 특정 값이 할당되지 않았을 경우 0으로 기본 초기화된다.
+	* 참조형의 경우 null로 초기화된다.
+	ㅁ 명시적 초기화
+	* 인스턴스 변수에 특정 값을 할당하였을 경우
+	ㅁ 생성자 초기화
+	* 생성자 전달인자를 통해 객체의 인스턴스 변수에 값을 할당하였을 경우
+	* 이 과정을 거친 후에, 생성자를 구별자로 하여 객체 생성 및 구분
+	
+	ㅁ stack에는 main 외 method의 지역변수들이 적재된다
+		ㄴ main도 메소드의 일종으로, 지역변수가 stack에 적재된다.
+
+-변수의 종류와 범위
+	ㅁ Java 변수의 종류
+		ㅁ instance variable - class에서 선언하는 변수, 객체의 속성정보를 저장(선언만 해도 기본초기화)
+			ㄴ 기본형 : 0, 참조형 : null, 논리형 : false
+			ㄴ java memory heap에 저장된다.
+		ㅁ local variable - 메서드, 생성자 영역에서 선언되고 초기화
+			ㄴ 지역변수, 메서드 및 생성자에서 일시적으로 사용되는 변수
+			ㄴ instance va와 달리, 반드시 명시적으로 초기화해야 한다.
+			ㄴ stack memory에 저장된다.
+			ㄴ 선언된 자신의 실행영역에서만 사용가능.
+		ㅁ class(static) variable - 객체를 별도로 생성하지 않고도 사용할 수 있는 변수
+			ㄴ 	클래스 로딩 시에 바로 metaspace memory에 저장된다.
+			
+		ㅁ main method는 static하므로 별도 객체생성없이 실행가능하다.
+		ㅁ main method 내부의 지역변수는 stack, 생성되는 객체는(내부 속성 등) heap에 저장된다.
+		ㅁ stack에 적재된 지역변수들은 해당 메소드(if 인자와 같은 반복문, 조건문 포함) 및 생성자가 실행완료된다면 제거된다.
+			ㄴ 한시적 기능을 위한 변수로, 사용 후 바로 제거하여 메모리 관리 효율을 증가한다.
+			ㄴ 매개변수(parameter) 역시 지역변수의 일종으로, stack에 저장된다.
+				ㄴ **매개변수를 통해 인자를 전달할때, 인자명이 인스턴스 변수명과 동일하다 하더라도 일단 인자를 취한다.
+				ㄴ 만약 인스턴스 변수를 취하고자 할 때는 반드시 this 키워드를 붙히도록 한다.
+				ㄴ 매개변수에 한해서만 실행완료 후 제거된다.
+				ㄴ 생성자에 대한 매개변수나 지역변수의 경우 객체 생성 후에 stack에서 제거된다.
+		ㅁ 다른 메소드의 지역변수를 사용하고 싶다면 인자를 통해 넘기는 방법을 고민해볼것!
+	
+	ㅁ ★★ 메소드 인자를 통해 객체참조변수를 전달하는 경우
+		ㅁ 생성자를 통한 내부적 정의 > 지역변수가 없어지면서 메모리에서 삭제, gc
+		ㅁ 해당 메소드를 통한 정의 > 지역변수가 없어져도 기존 속성이 바뀐채로 유지된다는 것이 핵심!!
+			ㄴ 새로운 객체를 생성하지 않는다.
+
+-UML class Diagram
+	ㅁ Unified Modeling Language
+		ㄴ 통합 모델링 언어, 분석 설계시 사용하는 모델링 언어
+		ㄴ 그 중 class diagram을 사용
+		
+-Class Diagram의 Relationship
+	ㅁ tool : staruml 설치
+	ㅁ Relationship : "얘(소유대상)"가 "얘(소유한 측)"한테 이런 관계에 있다.
+	ㅁ use a <일시적 소유, "지역변수">
+		ㄴ association, 사람이 렌트카를 사용한다.
+		ㄴ ex) Person -> car
+			* Person이 car를 사용할 수 있는 관계이며,
+			* 일시적 사용, 즉 특정 메소드안에서만 car class를 활용한다.
+			* 메소드 종료시 car 객체는 메모리에서 해제된다.
+	ㅁ has a <반영구적 소유, "인스턴스 변수">
+		ㄴ aggregation, 사람이 스마트폰을 소유해서 사용한다.
+	ㅁ consist of <필수적 구성요소, "생성자">
+		ㄴ composition, 사람의 구성요소 "뇌" (전속, 구성)
+	* 아래로 내려갈수록 긴밀도가 높아진다.
+	ㅁ 보통 소유대상, 필요한 것을 먼저 생성한다!
+	
+**4일차 주요 목차**
+ㅁ Class Diagram의 relationship 
+	ㄴ aggregation, composition
+ㅁ array(배열)
+ㅁ inheritance(상속)
