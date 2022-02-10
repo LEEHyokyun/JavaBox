@@ -3,4 +3,5 @@
     <fullyQualifiedTypeName name="java.security.DomainCombiner"/>
     <fullyQualifiedTypeName name="step1.HelloWorld"/>
     <fullyQualifiedTypeName name="step7.model.Customer"/>
+    <fullyQualifiedTypeName name="step5.ForLoopService"/>
 </qualifiedTypeNameHistroy>
