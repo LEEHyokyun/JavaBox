@@ -4,4 +4,7 @@
     <fullyQualifiedTypeName name="step1.HelloWorld"/>
     <fullyQualifiedTypeName name="step7.model.Customer"/>
     <fullyQualifiedTypeName name="step5.ForLoopService"/>
+    <fullyQualifiedTypeName name="step6.access.Bank"/>
+    <fullyQualifiedTypeName name="step5.Employee"/>
+    <fullyQualifiedTypeName name="step9.MarketService"/>
 </qualifiedTypeNameHistroy>

@@ -1,8 +1,0 @@
-package step7.test;
-
-public class TestAccessModifier {
-	public static void main(String[] args) {
-		Customer c;
-		
-	}
-}
