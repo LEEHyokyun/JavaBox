@@ -1,0 +1,98 @@
+ㅁ 응집도와 결합도
+	ㅁ 응집도(Cohesion) : 각 객체의 정체성, 기능성(내부적으로 기능 및 요소들이 서로 응집해있는 정도)
+		ㄴ 자신의 역할에 집중하는 정도(높을수록 좋다)
+	ㅁ 결합도(Coupling) : 특정 모듈이 다른 모듈에 의존하는 정도
+		ㄴ 서로 의존하는 정도(낮을수록 좋다, 유지보수 측면에서 간편해지기 때문)
+		
+ㅁ Polymorphism
+	ㅁ 하나의 메세지(인터페이스) 방식으로, 다양한 객체들이 각자의 방식으로 다양하게 동작하는 성질을 일컫는 개념
+		ㅁ ★★ 하나의 부모type의 메소드로 정의하여,
+		   ★★ 오버라이드된 메소드에 따라, 각자 자식객체의 방식대로 그대로 동작된다.
+		ㅁ 선행조건이 필요하다.
+			ㅁ 계층구조(hierarchy)를 형성하여 다형성 적용환경을 제공해야 한다.
+				ㄴ 상속(Inheritance)
+		ㅁ 참조변수는 다양한 객체를 참조할 수 있다.
+			ㄴ 부모 타입의 변수에 다양한 자식 객체를 참조할 수 있다.
+				ㄴ Animal a = new rabbit();
+		ㅁ 다형성의 특징
+			ㅁ point : "다양한 자식객체를 활용해야 하는 상황에서, 하나의 인터페이스 만으로도 다양한 객체를 사용할 수 있다, 여러 결과 출력가능하다."
+			ㄴ 예제
+		 	//기존 - 각 객체 datatype마다 method 정의...결합도가 높아진다.
+			//public void buy(Food f)
+			//public void buy(Computer c)
+	
+			//개선후, 다형성이 적용되는 형식으로 하나의 메소드로 통합 정의 가능.
+			main class)
+			public void buy(Product p) {
+				System.out.println(p.getClass().getName());
+			}
+			ㄴ 즉, 부모객체로부터 매우 다양한 객체들이 생성되는 상황에서
+		   		위와 같이, 자식객체들의 datatype에 따른 메소드를 일일이 main에서 정의할 필요없이
+		    	즉 하나의 인터페이스로 다양한 객체가 각자의 방식으로 동작하게 할 수 있는 도구이다.
+			service.buy(new Food());
+			service.buy(new Computer());
+			ㅁ 부모 datatype의 참조변수가 자식객체를 참조하는 방식의 업캐스팅.
+				ㄴ ★★ 여기서의 핵심은 각 객체형마다 정의하는 것이 아니라, 하나의 메소드로 정의할 수 있다는 점!
+				ㄴ 말 그대로 다양한 형태, 한 부모에서 수많은 다양한 자식 객체가 공유될때!
+				ㄴ 하나의 소통방식, 인터페이스 방식!
+		※ 참조개념 - VO(Value Object), SERVICE(동작, service)
+		ㅁ 자식 객체가 생성되어, 하나로 정의된 메소드는 DataType이 부모 class인 상황!
+			ㄴ 오버라이드된 메소드에 따라 자식객체 각자의 방식으로 동작하는 것이 핵심개념이다.
+			ㄴ 큰 그릇은 작은 그릇을 "담을 수 있다"
+			ㄴ 각 객체마다 일일이 메소드가 정의되어 있다면 결합도가 높고 유지보수성이 낮을 수 밖에 없다.
+
+ㅁ instance of 연산자
+	ㅁ 해당 (자식)객체가 비교대상(부모)객체에 대해 is a, 즉 상속관계 혹은 자기 자신에 속하는 type이라면 true를 반환하는 연산자이다.
+		ㅁ Person  p = new Person();일때 
+			ㄴp instance of Person(비교대상은 **DataType!!) - true!
+			ㄴ Datatype을 이용하여 구분!
+			ㄴp instance of Animal(비교대상은 **DataType!!) - true!
+		ㅁ 객체의 type, 실질적인 형태를 정의하여 주는 예약어, 비교연산자이다.
+		* 다형성적으로 자식객체들이 전달될때, 특정 자식객체에 대해서만 동작할 수 있도록 (구분) 분기처리 하는 방법
+		* method(Animal a){ if (instance of a == ~) } //실질적으로 전달된 객체를 구분할 수 있도록 한다.
+			ㄴ ※ 핵심개념은 "Datatype에 대해 구분할 수 있다!"
+			public void pass(Animal a) {
+			if(a instanceof Dog){
+				System.out.println("Dog instance가 호출되었습니다.");
+				a.eat();
+				} //is a 관계(상속관계에 있는 자식객체나, 자기 자신의 객체라면 true 반환)
+		
+ㅁ Object casting
+	ㅁ 부모 타입의 변수로 자식객체를 참조할때, 접근 가능한 영역은 부모의 멤버와 오버라이드된 자식의 영역이다.
+		ㅁ down casting - 현재 부모 data type으로 참조된 객체변수가 **자식객체 자신만의 메소드를 사용하기 위해 datatype을 자식type으로 끌어내리는 것을 의미한다.**
+			ㅁ pass(Animal a)와 같이 매개변수 type에 부모가 정의되어있는 상태에서 자식객체가 전달되거나
+			ㅁ Animal a = new Person(); //현재 참조변수 a는 Animal, 즉 부모 class type으로 정의되어있는 상태이다.
+				 ㄴ 생성된 객체는 Person 객체이지만, 참조변수 a가 가르키는 object는 최상위 class인 object와 Animal 객체 뿐이다.
+			 	ㄴ a.parentmethod(); - 기본적으로 Animal datatype, 즉 부모객체를 가르키고 있으므로 부모메소드는 사용가능
+			 	ㄴ a.method(); - 오버라이드된 메소드일 경우, **오버라이드된 메소드를 따른다. 즉 자식객체의 오버라이드 메소드를 실행**
+			 	ㄴ a.study(); - 자식객체 고유의 메소드는 원칙적으로 실행불가(*가르키는 것이 object, Animal!), 그러나 이때 자식객체까지 가르키는 down casting 시 동작가능!!
+			 		ㄴ ★★ ((Person) a).study(); //이 downcasting된 a object는 datatype이 부모이지만, 자식객체 고유의 method를 실행할 수 있는 상태가 된다.
+			ㅁ 핵심 : 현재 datatype 및 가르키는 object는 부모객체이지만, 오버라이드 자식 메소드까지는 가르키는 상황(자체적인 메소드 사용시 다운캐스팅 필요)
+
+ㅁ 객체배열
+	ㅁ 객체배열의 경우, 서로 연관된 같은 계층구조의 datatype(객체)에 대해서만 생성이 가능하다!
+		ㄴ Car[] newArray = {new Car(), new Car()} - 가능
+		ㄴ Car[] newArray = {new Animal()} - 불가능
+		ㄴ Animal[] newArray = {new Person(), new Monkey()} - 가능
+			ㄴ 부모 datatype - 자식 객체요소 가능
+	ㅁ 단, **부모type**으로 생성된 배열에 대해서는 다형성적용하여, 자식객체 생성가능하다!!
+	* 큰 그릇은 작은 그릇을 담을 수 있다.
+	ㅁ 객체배열도 마찬가지로, datatype에 따라 다운캐스팅 해야하는지 반드시 확인!
+		ㄴ 객체별 메소드 활용하고자 할 경우 다형성 형변환 먼저 확인할 것.
+
+※ classdiagram 관련 참고!
+	ㅁ 다이아몬드표시가 주체, 즉 A <>- B -> A가 B를 소유하고 있다.
+	ㅁ 이때 소유대상인 B에서 0..*은, A가 B를 0부터 *, 즉 여러개 소유할 수 있다는 뜻이다.
+		* end1, multipicity!
+	ㅁ VO(Employee <- Engineer, Manager,...) -> Service(logic, business logic) -> UI
+		ㄴ VO / Service는 association or aggregation!
+	
+**8일차 주요 목차**
+ㅁ 다형성
+ㅁ static (*객체를 생성하지 않고도 바로 메모리에 바로 적재가능, 즉 해당 변수 및 메서드 사용가능)
+ㅁ final (상수)
+ㅁ abstract (*상속/다형성과 연결되는 개념)
+ㅁ Template Method Design Pattern
+	ㄴ Spring에서 내부적으로 동작되는 Design Pattern
+ㅁ interface
+ㅁ Java 자료구조(Collection, array)

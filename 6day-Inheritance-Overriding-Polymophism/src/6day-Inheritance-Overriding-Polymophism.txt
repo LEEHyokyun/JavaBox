@@ -80,6 +80,8 @@
 		service.buy(new Food());
 		service.buy(new Computer());
 		ㅁ 부모 datatype의 참조변수가 자식객체를 참조하는 방식의 업캐스팅.
+		ㅁ 말 그대로 다양한 형태, 한 부모에서 수많은 다양한 자식 객체가 공유될때!
+			ㄴ 하나의 소통방식, 인터페이스 방식!
 			
 ㅁ Object casting(객체 형변환)
 ㅁ static, final, abstract, interface
