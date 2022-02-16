@@ -7,4 +7,13 @@
     <fullyQualifiedTypeName name="step6.access.Bank"/>
     <fullyQualifiedTypeName name="step5.Employee"/>
     <fullyQualifiedTypeName name="step9.MarketService"/>
+    <fullyQualifiedTypeName name="step1.ZooService"/>
+    <fullyQualifiedTypeName name="step1.Monkey"/>
+    <fullyQualifiedTypeName name="step1.Person"/>
+    <fullyQualifiedTypeName name="step1.Animal"/>
+    <fullyQualifiedTypeName name="step1.Dog"/>
+    <fullyQualifiedTypeName name="step4.Monkey"/>
+    <fullyQualifiedTypeName name="step4.Person"/>
+    <fullyQualifiedTypeName name="step4.Animal"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

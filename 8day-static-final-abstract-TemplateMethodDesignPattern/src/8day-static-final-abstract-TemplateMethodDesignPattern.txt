@@ -1,0 +1,204 @@
+ㅁ static (*객체를 생성하지 않고도 바로 메모리에 바로 적재가능, 즉 해당 변수 및 메서드 사용가능)
+	ㅁ 별도의 객체생성없이, class member로써 class 로딩시점에서, 
+		즉 class 로딩만으로도 metaspace 공간에 적재되는 키워드 혹은 접근제한자의 일종이다.
+		ㄴ 가장 대표적으로 main(static void main)
+	ㅁ class내 static으로 선언된 변수 및 메서드를 외부에서 접근할 경우, class.member와 같이 접근한다.
+		ㄴ class object를 별도로 생성할 필요가 없다!
+	ㅁ class attributes, method로 표현하며, 이와 연관되는 개념이자 접근제어자이다.
+		*class 변수라고도 일컫는다.
+		ㄴ class의 member이다.
+	ㅁ static은 class의 멤버를 지칭하는 개념이며, Object/instance 개념이 아니다!
+		ㄴ class에서 실재화(instantiate)하여 instance를 생성하는 기존 과정
+			ㄴ 이때 static은 class member, metaspace에 한번 적재(저장)(class loading시 딱 한번, 하나의 공간에)!
+			ㄴ instance member는 heap 메모리에 객체로 적재(**연산자 new)!	
+	ㅁ static modifier, 변수 및 메소드 앞에 명시하는 접근제한자의 일종이다.
+	ㅁ ex)
+		class Person{
+		int money1; //instance variable, heap에 저장
+		static int money2; //static variable, metaspace에 저장
+		}
+
+	public class TestStatic1 {
+		public static void main(String[] args) {
+			//일반 인스턴스 variable 접근시 객체생성
+			Person p = new Person();
+			System.out.println(p.money1);
+			//static 접근시 객체생성필요X
+			System.out.println(Person.money2);
+		}	
+	ㅁ ex) main 메소드 역시 static으로 객체생성없이 실행된다!
+		* main 메소드 역시, 같은 클래스 내부라도 static 영역인 것을 반드시 유의하도록 한다.
+		* main 메소드이지만, 같은 클래스 내부라도 인스턴스 멤버사용에 유의!!
+	ㅁ static method내에서는, 같은 클래스라도 instance variable 접근 및 사용불가!
+		* 인스턴스 변수는 객체생성시점에서 heap 메모리에 적재
+		* static 멤버 및 변수는 class loading 시점에서 metaspace에 적재
+		* 따라서, 메모리에 적재되지않은 변수에 접근하는 것이므로,
+		  인스턴스 변수 생성시점인 객체생성 이후에, heap에 메모리에 적재되며 그 이후에 인스턴스 변수를 사용할 수 있다.
+		* 즉, 인스턴스 변수 및 메소드는 객체생성을 하고나서, 같은 클래스 내에서라도 접근할 수 있다.
+	ㅁ 즉 메모리 적재시점 원리에 따라
+		ㄴ non static > static 방향으로의 접근은 가능하다.
+		ㄴ static > non static 방향으로의 접근은 불가능하다.
+	ㅁ 같은 class 내에서 non static, static 간
+		ㄴ non static에서 non static은 참조할 수 있다(non static method에서 non static variable 참조 가능)
+		ㄴ non static에서 static은 참조할 수 있다(위와 마찬가지, non static에서 static 변수참조가능)
+		ㄴ 같은 class 내부라면, static 변수는 static method 내부에서 "class.static"없이도, static 바로 접근이 가능
+			ㄴ 단, 다른 class라면 class 명시를 반드시 해주어야 한다(class.static).
+			ㄴ 마찬가지 방법으로, 동일 클래스 상에서 non static(인스턴스) method 상에서 non static variable(변수)에 "바로" 접근하여 사용 가능하다.
+	★ 꼭 필요한 경우가 아니라면 사용을 하지 않도록 한다.
+		ㄴ gc 적용대상이 아니다, 즉 메모리가 계속 유지된다.
+	ㅁ 생성자를 통한 static 할당은, this가 아닌 class를 직접 기재!
+		ㄴ
+			class Customer{
+				static String name;
+				Customer(String name){
+				Customer.name = name;
+			}
+	ㅁ 객체생성과는 상관없이, metaspace에 저장!
+		ㄴ c1.name > 아이유
+		ㄴ c2.name > 박보검
+		ㄴ c1.name > 박보검
+			ㄴ 즉, c2.name 저장후 c1.name으로 접근시 박보검 그대로 출력!
+			ㄴ metaspace라는 별도의 공간에 계속 누적하여 저장하기 때문!
+		ㄴ ** 그리고 애초에 올바른 접근 방법이 아님!
+			ㄴ Customer.name!
+	
+ㅁ static variable의 metaspace는 "계속 누적된다".
+	ㄴ 즉, instance variable시 new 연산자로 새로운 객체를 생성하여 사용하는 것과 비교,
+		class.static은 같은 static 변수를 참조하게되어 사용시 계속 누적!
+		instance variable은 각각 다른 heap에 저장되어 별도의 변수로 저장되어 관리
+	*"붕어빵 틀"차원에서 정보를 저장한다.
+	public static void main(String[] args) {
+		Fish f1 = new Fish(); //생성자초기화 및 호출로 인해 각각 1씩 증가됨
+		System.out.println(f1.count); //별도의 f1에서 0->1
+		System.out.println(Fish.sCount); //붕어빵틀 차원에서 0->1
+		
+		Fish f2 = new Fish();
+		System.out.println(f2.count); //별도의 f1에서 0->1
+		System.out.println(Fish.sCount); //붕어빵틀 차원에서 1->2
+	}	
+	ㄴ Fish class는 class loading 시점에서 이미 한번 다뤄지고, 이때 static 변수가 metaspace에 저장된다(사라지지않고 누적!)
+	ㄴ 그 후, new를 통해 객체생성시 인스턴스변수는 별도 생성
+	ㄴ **static 변수는 class 변수, 즉 metaspace로 바로 참조되는 변수로써 접근 및 활용된다.
+	ㅁ 객체를 통해 static에 접근, 즉 f1.sCount를 해도 JVM은 "객체"를 통해 접근하는 것이 아닌
+		metaspace로 바로 접근하여 참조하는 것이다(Fish.Scount, 즉 class 변수로 참조하도록 접근)
+		ㄴ heap과 달리, gc대상이 아니므로 메모리 관리 차원에서 매우 비효율적!
+			ㄴ 웬만해서는 static을 남용해서는 안된다.
+	ㅁ object가 아닌, class차원의 정보를 저장하고자 할 때!
+		
+ㅁ JavaSE API에서 자체적으로 제공하는 static method
+	* 기존 접근하듯이, Class.static으로 해당 메소드를 활용할 수 있다.
+		ㄴ Short class > Short.MAX_VALUE;
+		ㄴ Integer class > Integer.parseInt(String s1 = 2);
+
+ㅁ main method 내부에서의 static 초기화영역
+	* main method 내부에서 static 초기화영역은 가장 먼저 우선적으로 실행된다.
+		ㄴ 사전작업 필요시 설정
+		
+ㅁ Java memeory
+	ㅁ stack - local variable
+	ㅁ heap - object instance
+	ㅁ metaspace - static member, class meta data
+		ㄴ package, method, class (class에 대해 "기술할 수 있는")정보가 저장되는 영역이다.
+		ㄴ **meta data : data의 data, data의 명세서
+		ㄴ 객체(heap)과 달리, 전역적으로 사용되어 누적될 수 있는 공간이다.
+
+ㅁ Runtime process
+	ㅁ java > JVM > Runtime
+	ㅁ 이때 Runtime은 class loader > Byte code verifier > interprter > Run 과정을 실행
+		ㄴ class loader 시점에서 class member, 즉 class meta data가 metaspace에 적재된다.
+		ㄴ 이게 최초, 즉 실행시점에서 가장 먼저 일어나는 과정이며 이때 class member, method정보와 함께 static도 같이 적재된다.
+		ㄴ 그 후 Byte code verifier(class 이상없는지 확인) > interpreter(기계어 통역) > Run(객체최종생성)의 과정을 진행한다.
+	ㅁ 실행시 main에 최초로 접근하게 되며, 객체를 최종생성할때 필요시 동적으로 객체 및 메소드 등을 생성
+		ㄴ stack / heap ...
+
+ㅁ final (상수)
+	ㅁ field : 변수, 상수
+		ㄴ static처럼 modifier의 일종으로, 상수값처리를 하여, 한 번 할당되면 재할당 불가
+		ㄴ 상수명은 대문자로 구성
+			ㄴ ex) private final ADMIN_ID = "...";
+	ㅁ method : 상수메서드
+		ㄴ 상수메서드, 자식 클래스에서 오버라이딩 불가
+	ㅁ class : 상수클래스
+		ㄴ 자식 클래스가 생성 불가, 즉 상속불가
+	ㅁ String class도 하나의 class이자, final class로 변형이 불가능한 클래스이다!
+	ㅁ 마찬가지로 java.lang의 Object에서 notify 메소드도 하나의 final 메소드!
+		ㄴ 오버라이딩하여 사용 불가능.
+※ 정의순서
+public - [static](abstract) - (final) - String - name - = - 7;
+접근제한자/static/final(상수, 없으면 변수)/dataType~
+
+ㅁ abstract (*상속/다형성과 연결되는 개념)
+	ㅁ 추상클래스, 추상메소드를 선언할때 사용하는 키워드이다.
+		ㄴ public "abstract" class Hello{}
+	ㅁ abstract class
+		* 추상클래스, 부모역할에 집중하며, 직접 객체화 될 수 없다.
+			ㄴ 즉, new로 생성불가(자신 스스로 객체가 될 수 없다).
+		* 단, 자식클래스를 통해서 super()을 통해 객체가 생성되는 것은 가능하다.
+		* 실제로, Animal 부모 class는 new로 실제 객체를 만드는 경우는 거의 없었다!
+			ㄴ 실질적인 사용은 자식객체가 이를 물려받아(상속) 사용하며, 
+				부모는 말그대로 type 제공, 즉 형태 제공에만 집중한다!
+			ㄴ 즉, Animal이나 Human과 같이 generalzation된 class는 매우 포괄적이고 개념 자체가 추상적(경계가 모호하다).
+				*Animal, Human이 new 객체로 생성된다면 매우 어중간, 정체성이 모호해진다.
+				*이런 경우를 방지하기 위해, abstract 키워드를 사용하여 객체생성을 방지한다!
+					ㄴ 즉, "type"만 제공한다는 것이 가장 핵심이다.
+		* 상속받은 자식클래스가 생성자를 통해 객체 생성시, super를 통해 abstract, 즉 부모객체를 생성하면서 그 이후에 자신의 객체를 생성
+			ㄴ 사실상 상속과 별 다를게 없다. 단순히 abstract 키워드를 덧붙히는 것이다.
+			ㄴ 부모 class는 말그대로 dataType 제공에만 집중한다.
+			ㄴ 기능은 자식클래스가! 응집도 증가, 결합도 감소!	
+	ㅁ abstract method
+		* 자식 하위 클래스에게 구현을 강제한다. 
+		* 즉, 자식 클래스가 반드시 구현부를 구체화해야 하며, abstract에서는 구현부{}가 존재하지 않는다.
+			ㄴ public void method(); -> 구현부 별도 정의없음, 끝.
+		* abstract method가 하나라도 존재한다면, 그 클래스는 abstract class가 되어야 한다.
+			ㄴ 자식 클래스가 반드시 해당 메소드를 구현하거나, class가 abstract로 정의되어야 한다.
+			ㄴ 당연히 자식클래스가 해당 메소드를 구현하는 방식으로 진행되어야 한다.
+				ㄴ 이때 구체화하는 과정을 implement라 일컫는다.
+		* 자체적으로 제공하는 API들도 마찬가지로, abstract method를 오버라이딩하여 자체적으로 정의해주기만 하면 된다!
+			ㄴ 이게 abstract를 사용하는 이유...각 field 영역은 사용자마다 다름.
+		※ 사용자 측에서는 부모가 제공하는 dataType을 참고하기만 하면 된다.
+			ㄴ 부모차원에서는 구현할 수 없는 기능(너무 포괄적이어서)이지만, 자식차원에서 구현해야 하는 경우에 abstract method가 효율적!
+			ㄴ 매우 간편하고, 효율적으로 기능을 구현할 수 있다!
+		* 실제 구현부 사용시엔 평소 해왔듯이, dataType은 부모로 객체는 자식으로!
+			ㄴ Parent p = new Child(); , p.eat(); -> 오버라이딩된 메소드 사용!
+	
+ㅁ Design Pattern
+	ㅁ Spring에서 내부적으로 동작되는 Design Pattern
+	ㅁ 소프트웨어 설계 패턴, 설계 단계에서 공통적으로 발생하는 문제에 대한 재사용가능한 
+		말 그대로, 설계에 대한 해법.
+	ㅁ Template Method Desgin Pattern : 부모 클래스에서 알고리즘 "구조" 정의, 이를 자식이 재사용 및 정의
+		* 부모 클래스 차원에서 정의 가능한 모든 기능은 자식에게 물려주고, 자식 차원에서 필요시 기능을 추가
+			ㄴ 부모클래스에서 작업공정, data type을 정의한다, 이 부분을 template method라 한다.
+			ㄴ 자식차원에서 필요기능이 있다면(필요시) 추가 및 구현, 구체화하는 구조, 방식을 의미한다.
+		* 1) 공통부분 탐색 및 구별부분 정의
+		  2) 부모 class, 자식 class (abstract - implementation)
+	  	ㄴ ★★ 위에서 abstract, 공통공정 모두 하나의 template method 구현!
+			ㄴ 위 method와 함께, 이에 대한 작업공정을 정의한 template method를 자식이 그대로 상속받도록 한다.
+		  3) 자식은 부모를 상속받아서, 특히 template method를 상속받아 implementation한다.
+		  4) 중요한 것은, 사용자 입장에서는 template method(*"makePizza")만 호출하면 되기 때문에 매우 효율적!
+		  ※ 실제적인 작업, 기능, type은 protected 형으로, 작업공정(template method)들은 public형으로!
+		  ※ 실제 main에서는 template method(makePizza)만 호출, 각 자식객체들은 abstract 부분에 대해서만 implementation!
+		  	ㄴ (#topping 부분에 대해서만 맞춤형 정의)
+		  ㅁ package 구성 : service(PotatoPizzaService) / common(PizzaService) / test(main)
+		  	ㄴ common은 "부모역할", 최종적으로 간편하게 사용할 메소드인 template 메소드를 정의하는 것이 중요!
+		  		ㄴ abstract 기능에 대해서는 자식이 넘겨받아 구체화, 즉 오버라이드!(자식들은 객체가 실제로 생성되어야 함)!
+		  		ㄴ (★표준화) 유일하게 공개되는 메소드는 template method, "makePizza"
+		  		ㄴ public template method를 실제로 받아서 사용하는 부분(service)은 main!
+		  		ㄴ **main에서는 객체배열로 자식객체를 생성하며, 실질적으로 사용하는 메소드는 부모의 template method가 유일!	
+		  		ㄴ abstract 부분은 자식객체가 오버라이딩하여 구체화하며, template method 호출시 오버라이딩한 메소드가 호출된다.
+		  	ㄴ 각 세부공정에 대한 정의는 protected!
+		  	ㄴ 자세한 사항은 src 구조 및 구성 참조!!
+		  ㅁ 목적
+		  	- 작업공정, 기능의 표준화
+		  	- 사용자 관점에서의 편의성 제공
+※ 어노테이션 : 컴파일시 오버라이드 문법 체크!
+ㅁ java.lang.String
+	* equals, 문자열 비교시에는 equals 메소드를 사용한다.
+	 	ㄴ String s1 = "Hello", String s2 = new String("Hi")
+	 	ㄴ s1.equals(s2);
+ㅁ interface
+ㅁ Java 자료구조(Collection, array)
+
+**9일차 주요 목차**
+ㅁ interface
+ㅁ java.util.Collection
+	ㅁ Java 자료구조(Collection, array, Set, List)
