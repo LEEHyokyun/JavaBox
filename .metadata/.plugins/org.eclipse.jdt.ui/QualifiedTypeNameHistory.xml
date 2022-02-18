@@ -16,4 +16,16 @@
     <fullyQualifiedTypeName name="step4.Person"/>
     <fullyQualifiedTypeName name="step4.Animal"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="step1.Bird"/>
+    <fullyQualifiedTypeName name="step1.Flyer"/>
+    <fullyQualifiedTypeName name="step1.AirPlane"/>
+    <fullyQualifiedTypeName name="step4.CDPlayer"/>
+    <fullyQualifiedTypeName name="step4.LPPlayer"/>
+    <fullyQualifiedTypeName name="step7.KaKaoBank"/>
+    <fullyQualifiedTypeName name="step7.OpenSourceInterface"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.LinkedBlockingDeque"/>
+    <fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+    <fullyQualifiedTypeName name="java.util.LinkedHashSet"/>
+    <fullyQualifiedTypeName name="java.util.TreeSet"/>
+    <fullyQualifiedTypeName name="java.util.Random"/>
 </qualifiedTypeNameHistroy>
