@@ -1,0 +1,31 @@
+ㅁ java.util.Iterator
+	ㅁ 반복자
+		ㅁ Collection 계열 자료 구조체들이, 하나의 단일한 방식으로 자신의 요소들을 반복 열거할 수 있는 방법을 제공하는 "인터페이스".
+		ㅁ 반복순회함과 동시에, 해당 요소들을 return하는 인터페이스의 일종이다.
+			* 가장 대표적인 기능으로 hasNext(다음 요소가 있으면 true), next(다음 요소를 반환)
+			*	ex) 
+				Iterator it = set.iterator();
+				while(it.hasNext()){
+					sysout(it.next());
+				}
+		
+ㅁ java.util.Map 
+	ㅁ key, value 쌍으로 저장이 되는 자료구조이며, key를 통해 즉시적인 value 탐색이 가능하다.
+		* 등록, 검색, 수정, 삭제가 모두 용이하다.
+	ㅁ 구현체는 LinkedHashMap class(입력순서보장), TreeMap class(정렬기능내장)이다.
+		*입력순서보장 = 자동정렬이 되지 않는다.
+	ㅁ map.put(map 자료구조에 해당 요소 삽입)/map.get(index)(map 자료구조 해당 인덱스 value 가져오기)/map 함수에 대해 toString 오버라이드가능(get함수를 통해 "해당 객체 주소값 반환함")
+		* set, list 자료구조에서 사용하는 메소드와 동일
+		* key는 유일한 값으로, 중복시 value가 update된다.
+		* put을 sysout할 경우, 기존 update 이전에 있었던 요소에 대해 return한다.
+	ㅁ map.remove(key) 해당 value값 삭제
+	ㅁ 구현체를 TreeMap로 할 경우, 자동적으로 정렬된다(key값 기준으로 자동적으로 오름차순 정렬).
+	ㅁ values() 메소드 이용시 Collection type으로 return, iterator를 활용하여 해당 구현체 생성 및 관련 메소드 오버라이딩 가능!
+
+※ LinkedHashMap -> 입력순서 보장
+	* Map자체를 인스턴스 변수로 설정한다.
+	* 해당 Map 변수에 VO를 삽입한다.
+	* iterator 사용을 위해 Collection<E>를 통해 map.values()로 일단 Collection 구현체 먼저 생성
+	* Iterator<E> it = col.iterator()를 통해 Iterator 오버라이디드 메소드를 사용하기 위해, iterator 구현체를 반환받는다(iterator 메소드 사용).
+
+ㅁ java.util.stack, java.util.Queue
