@@ -17,9 +17,40 @@ public class SchoolService {
 			list.add(member);
 		}
 	}
+	
 	public void printAll() {
 		for(int i=0;i<list.size();i++) {
 			System.out.println(list.get(i));
 		}
 	}
+	
+	public Member findMemberByTel(String tel) {
+		Member member = null;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getTel().equals(tel)) {
+				member = list.get(i);
+				break;
+			}
+		}
+		
+		return member;
+	}
+	
+	public String deleteMemberByTel(String tel) {
+		String message = null;
+		//01012341234 tel에 해당하는 구성원 정보가 없어서 삭제 불가
+		for(int i=0;i<list.size();i++) {
+			if(tel.equals(list.get(i).getTel())) {
+				message = list.remove(i).toString();
+				break;
+			}
+		}
+		// tel:0101231237 name:김선제 address:화성 department:재무부
+		if(message == null) {
+			return tel + "에 해당하는 구성원 정보가 없어서 삭제 불가";
+		}else {
+			return message;
+		}
+	}
+	
 }
