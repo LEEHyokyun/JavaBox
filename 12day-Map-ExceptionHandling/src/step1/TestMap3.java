@@ -1,4 +1,4 @@
-package step3;
+package step1;
 
 public class TestMap3 {
 	public static void main(String[] args) {
@@ -17,5 +17,14 @@ public class TestMap3 {
 		id = "4";
 		System.out.println(service.findProductById(id));
 		service.printAll();
+		System.out.println("*******Id로 상품삭제*******");
+		System.out.println("*******삭제전 장바구니에 있는 상품 정보*******");
+		service.printAll();
+		service.deleteProductById("2");
+		System.out.println("*******삭제후 장바구니에 있는 상품 정보*******");
+		service.printAll();
+		System.out.println("*******장바구니에 있는 상품총액********");
+		int totalPrice = service.getTotalPrice();
+		System.out.println("상품총액: " + totalPrice);
 	}
 }

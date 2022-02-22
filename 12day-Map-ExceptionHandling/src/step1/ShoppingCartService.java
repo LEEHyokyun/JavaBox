@@ -1,4 +1,4 @@
-package step3;
+package step1;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -24,5 +24,23 @@ public class ShoppingCartService {
 	public Product findProductById(String id) {
 		Product product = map.get(id);
 		return product;	
+	}
+
+	public void deleteProductById(String id) {
+		map.remove(id);
+	}
+
+	public int getTotalPrice() {
+		int totalPrice = 0;
+		
+		Collection<Product> col = map.values();
+		Iterator<Product> it = col.iterator();
+		
+		while(it.hasNext()) {
+			Product p = it.next();
+			totalPrice = totalPrice + p.getPrice();
+		}
+		
+		return totalPrice;
 	}
 }
