@@ -1,0 +1,40 @@
+ㅁ Exception Handling
+	ㅁ Obejct > Throwable > Error / Exception
+	ㅁ stackoverflow와 같은 error 발생상황 등, 반드시 try-catch를 통한 error 처리가 불가능한 경우도 존재한다.
+		ㄴ 코드자체를 수정
+	ㅁ throws -> 메소드를 대상으로 작성!, Exception -> 발생순간 catch 실행!
+	
+ㅁ Collection map, iterator, Exception
+
+ㅁ String, StringBuilder
+	ㅁ String
+		String.concat/contains/indexOf/startsWith/endsWith
+		String.subString(index)/subString(startIndex, endIndex)
+		String.length(),trim(),lastIndexOf(".")
+		String.lastIndexOf
+		*확장자 : String.subString(String.lastIndexOf(".")+1)
+		*확장자를 제외한 파일이름 : String.replace(".mp3","")
+	ㅁ	StringBuilder
+		sb.append/subString/insert/delete(startIndex, finalIndex+1)
+		sb.reverse()
+
+ㅁ java 문자열 시스템
+	ㅁ String - 변하지 않는 상수, 불변한다.
+		ㅁ ★ heap 메모리 영역 내 String constant pool(문자열 상수영역)에 저장한다.
+		ㅁ 한번 생성된 문자열을 여러곳에서 공유 및 사용할 경우
+		ㅁ 동일한 문자열을 자주 사용할때
+		ㅁ 메서드로 추가, 삭제 등을 할 경우 "새로운 문자열"이 생성된다.
+		ㄴ String name1 = "아이유", name2 = "아이유"
+			stack에서 생성된 다른 참조변수 name1, name2가
+			각각 문자열 상수 영역(String constant pool)에 생성된 아이유 문자열을 참조하는 방식!
+	ㅁ StringBuilder
+	ㅁ StringBuffer(*Thread 개념)
+		ㅁ 두 문자열 시스템은 동작방식이 유사, 가변적인 문자열
+		ㅁ 즉 문자열 자체가 변경되며, 메서드로 변경시 동일한 참조 문자열, 즉 문자열 자체가 추가/삭제/수정된다.
+		ㅁ 문자열 자체가 자주 변경될 때 유용하게 사용할 수 있다.
+	ㅁ String 		StringBuilder		StringBuffer
+		불변			가변				가변
+		새로생성		자체변경			자체변경
+											thread-safe
+	
+	
