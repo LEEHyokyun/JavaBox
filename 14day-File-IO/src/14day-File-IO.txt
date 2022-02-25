@@ -1,0 +1,36 @@
+ㅁ String/StringBuilder 관련 유의사항
+	ㅁ concat을 통해 문자를 덧붙힌 새로운 문자열은 동일하게 constant string pool에 생성된다!
+	ㅁ StringBuilder를 통해 저장한다면 "문자열이 객체로 저장되어, heap 영역에 하나의 객체"로써 저장됨에 유의한다(참조변수 sb가 객체로 생성된 문자열을 참조).
+	ㅁ String과 StringBuilder는 엄연히 서로 다른 문자열이며, 비교가 불가능하다.
+		ㄴ String name != StringBuilder("~~").toString
+	ㅁ 비교시에는 특정 메소드를 활용할것!
+		* String.equals(sb.toString) //equals 이용시 toString 
+		* String.contentEquals(~) //toString 없이도 비교 가능
+	
+ㅁ java.io.File
+	ㅁ File class
+		* 자세한 사항은 예문 참조!
+	ㅁ File 객체를 생성해야 디렉토리, 파일 관련 메소드를 사용할 수 있다!
+ㅁ IO(입출력)
+	ㅁ Input(입력)/Output(출력)
+	ㅁ Stream(스트림)
+		* 파이프라인(사전적 의미)
+		* 입출력을 위한 도구 혹은 장치
+		ㅁ 4가지의 abstract(super) class를 사용하여 pipeline을 설계한다.
+			ㅁ 각 stream은 data 크기에 따라 1byte(8bit) / 2byte(16bit)를 전달할 수 있다.
+				Input : InputStream(1byte) - Reader(2byte)
+				Output : OutputStream(1byte) - Writer(2byte)
+				 ㄴ ※ 1byte - ByteStream, 2byte - CharacterStream
+				 ㄴ ※ I/O시 사용하는 부모 class 임을 기억한다.
+	ㅁ 이외의 Stream도 존재한다.
+		ㅁ NodeStream 계열 - 장치연결 필수적
+			* 직접 장치, 즉 data에 연결
+		ㅁ processsingStream 계열(FilterStream) - 다양한 기능을 제공
+			* 기존 Stream에 연결되어 사용한다.
+			* Reader와 같이 별도의 Stream이나 객체가 반드시 필요하다.
+				ㄴ 임의의 공간에 데이터를 담아두고 buffer를 하는 등, 다양한 기능 제공
+			* 사용 후 필수!
+	ㅁ 기본적으로 IO메소드 사용 시 예외처리는 필수적이다.
+			
+			
+			
