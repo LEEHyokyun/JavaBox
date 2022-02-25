@@ -1,0 +1,23 @@
+ㅁ IO Stream
+	ㅁ 2Byte(Charchter Stream) - String 정보에 대해서는 2byte 단위로 처리 가능 Read/Write 클래스 사용
+	ㅁ 1Byte(Byte Stream) ->  img, Obejct(메모리 정보), 동영상 등에 대한 정보는 1byte 단위로 처리, byte stream 계열의 Input/Output stream 클래스 사용
+
+ㅁ Object Serialization 
+	ㅁ File에 연결하는 node Stream / 객체복원을 위한 도구를 제공하는 processing stream
+	ㅁ 객체 직렬화
+		ㅁ processingSteam : ObjectOutputStream, writeObject(Object)
+		* heap 메모리 상의 객체를 외부로 파일, 네트워크를 통해 전송할 수 있는 "상태", 즉 연속적인 데이터로 만드는 것을 의미한다.
+		* 객체 직렬화를 위해선 클래스가 반드시 java.io.seializable interface를 implement 해야한다.
+			ㄴ 즉, 직렬화를 위해 serializable interface의 하위 클래스로 정의되어야 직렬화가 가능하다.
+			ㄴ NotSerializableException: 예외발생을 방지하기위해, 외부로 보낼 클래스에 대해 Serializable interface 계층구조를 만들어야한다.
+	ㅁ 객체 역직렬화
+		ㅁ processingStream : ObjectInputStream, readObject(Object)
+		* 파일에서 객체를 추출하여, 전송할 수 있는 상태로 만들어서 메모리로 복원하는 것
+		* 최종적으로 정보를 입력받아 heap 메모리로 객체를 복원하는 것
+	ㅁ trasient
+		* Object를 파일로 직렬화할때, trasient로 명시된다면 해당 인스턴스 변수는 직렬화되지 않는다.
+		* 따라서 역직렬화하여도 해당 변수는 얻어올 수 없음
+	ㅁ 부모가 interface를 imple한다면, 이를 상속받은 자식이 또 imple할 필요는 없다.
+		 *  serializable interface를 imple한 부모를 자식이 상속받을 경우,
+		 *  직렬화 가능한 특성을 자식이 그대로 물려받고, 이를 직렬화할 수 있다.
+	 
