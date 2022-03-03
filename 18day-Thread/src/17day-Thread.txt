@@ -1,5 +1,52 @@
 ㅁ Thread
-	ㅁ 
+	* File 객체 생성후, 해당 File객체를 renameTo
 	
-	ㅁ synchronized(동기화 처리)
+ㅁ 멀티스레드 환경에서의 자원 공유
+	ㅁ 다수의 스레드, 멀티 스레드들은 기본적으로 데이터 공유가 가능하다.
+		* 각 스레드들은 stack에 적재되어, local variable로써 정보 및 값을 저장 및 누적
+		* 공유할 수 있는 자원들은, heap에 적재된 객체 등, 이 데이터들을 각각의 멀티스레드들이 공유할 수 있다.
+			ㄴ 특히 같은 클래스로 부터 생성된 스레드들은 해당 클래스의 자원(변수 등) 공유 가능
+	ㅁ stack에 적재되면서 자원까지 추가적재되는 것이 아니기 때문에, server의 자원을 절약할 수 있다.
+
+ㅁ synchronized(동기화 처리) 
+	ㅁ 멀티 스레드 환경에서 데이터를 공유할때, 특정부분에 대해 단일 스레드 환경으로 변화(접근을 제한)하는 것이다.
+	ㅁ 정보를 읽는 정보열람은 큰 문제가 되지는 않지만, **정보조작**시 동시 접근으로 인한 자원공유문제가 발생할 수 있다.
+		* 예를 들어 동시에 같은 자원에 접근하고 조작할 경우, 이때 동기화처리를 한다면 스레드들이 해당 자원을 **순차적으로 공유하고 처리한다.**
+		** 기본적으로 멀티스레드 환경에서 if와 같은 조건문을 통해 단순한 제어가 힘들다!	
+	ㅁ 순차적 처리, 처리중이지 않은 스레드들은 lock pool에서 대기한다.
+		* 처리가 완료된 스레드들은 다시 Runnable 상태로 전환.
+	ㅁ 동기화를 하는 2가지 방법
+		* 메소드 전체를 synchronized 처리할 경우
+			* public synchronized void method(){...}
+		* 메소드 전체가 아닌, 일부 logic에 대해서만 동기화 처리 가능하다.
+			* synchronized(this){...}
+	ㅁ 자원 자체보다는, 해당 자원에 접근하는 메소드 자체를 통해 스레드 접근을 제한
+		* 즉, 메소드 제어를 통한 접근 스레드를 제어하여, 자원에 접근하는 스레드를 동기화 처리 및 조정한다.
+	
+ㅁ 문자열에서의 동기화 처리
+	ㅁ String - 불변(String constant pool), StringBuilder - 가변/자체변경(heap), StringBuffer - 가변/동기화처리(Thread-safe)
+	ㅁ StringBuffer의 Thread - safe
+
+ㅁ 자원 자체를 동기화처리할 수도 있다.
+	ㅁ java.util.Collections > synchronizedList or synchronizedMap
+	ㅁ Vector/HashTable를 이용한 자원의 동기화 처리
+		ArrayList vs Vector
+		HashMap vs HashTable
+			ㄴ * 최근 Vector, HashTable은 사용하지는 않고, List/Map 계열의 동기화 처리가 필요할 경우
+				java.util.Collections의 synchronizedList()나 synchronizedMap() 등을 이용하여 자원 동기화 처리한다.
+
+ㅁ 동기화 처리와 비슷한 개념의 메소드도 존재한다.
+	ㅁ wait() - lock, notify() - runnable 메소드
+	
+ㅁ 실제 실무에서는 DB접근, Data CRUD시 이러한 동기화처리를 많이 고려함에 유의
+	ㄴ DBCP, database에 연결하는 connection 관리체계인 connection pool에 대한 상태정보를 동기화 처리로 관리한다.
+	ㄴ 즉 사용중인 connetion에 대해 동기화 처리.
+
+ㅁ 네트워크
+	ㅁ client, server로 구성되는 데이터 전송 체계
+		ㄴ server의 IP은 고유한 위치값, Port는 다양한 값을 가질 수 있는 서비스값
+			ㄴ client socket(통신주체)은 server ip, port를 기반으로 만들어진다.
+			ㄴ servercokect이란 접수창구에서, port를 기반으로 다수 client를 받기위해 accpet 및, 접수후 통신할 객체를 생성한다(socket).
+			ㄴ 서로 만들어진 client/server의 socket끼리 소통 및 통신하게 된다.
+	ㅁ 통신규약을 기반으로 데이터 전송이 이루어진다(TCP/IP or HTTP 등).
 	
