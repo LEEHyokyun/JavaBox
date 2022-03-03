@@ -15,9 +15,11 @@ public class NetClient3 {
 		Socket socket = new Socket("127.0.0.1", 5431);
 		System.out.println("NetClient3의 소켓이 생성 및 실행되었습니다.");
 		//server에게 메세지를 출력
+		//socket byte stream -> printwriter character stream
 		//socket에서 data를 입력받는 즉시 출력한다, auto flush
 		PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
 		pw.println("모두 고생많으셨습니다~!");
+		//stream, socket close
 		pw.close();
 		socket.close();
 		System.out.println("NetClient3의 소켓이 제거되었습니다.");
