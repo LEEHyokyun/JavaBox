@@ -56,4 +56,7 @@
     <fullyQualifiedTypeName name="java.util.Random"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="common.IP"/>
+    <fullyQualifiedTypeName name="test.Outer.Inner"/>
 </qualifiedTypeNameHistroy>
