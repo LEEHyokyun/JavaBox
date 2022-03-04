@@ -23,6 +23,9 @@ public class NetServer3 {
 				String message = br.readLine();
 				//클라이언트는 그 출력한 메세지를 받아 다시 화면에 입력한다.
 				System.out.println(clientIP+"님의 메세지를 입력받아 출력합니다: "+message);
+				/*
+				 * 실제적인 메시지 출력은 콘솔창에서.
+				 */
 				//클라이언트 폐기시 InputReader와 socket을 close
 				br.close();
 				socket.close();
