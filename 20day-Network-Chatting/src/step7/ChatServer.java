@@ -7,10 +7,13 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ChatServer {
-	private ArrayList<ServerWorker> list = new ArrayList<ServerWorker>();
-
+	//private ArrayList<ServerWorker> list = new ArrayList<ServerWorker>();
+	//multi thread에 대해 동기화 처리를 하는 경우
+	private List<ServerWorker> list = Collections.synchronizedList(new ArrayList<ServerWorker>());
 	public void go() throws IOException {
 		ServerSocket serversocket = null;
 		Socket socket = null;

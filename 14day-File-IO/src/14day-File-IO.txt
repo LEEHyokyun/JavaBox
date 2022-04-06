@@ -11,6 +11,7 @@
 	ㅁ File class
 		* 자세한 사항은 예문 참조!
 	ㅁ File 객체를 생성해야 디렉토리, 파일 관련 메소드를 사용할 수 있다!
+		ㄴ isFile, isDirectory, 
 ㅁ IO(입출력)
 	ㅁ Input(입력)/Output(출력)
 	ㅁ Stream(스트림)
